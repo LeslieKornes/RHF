@@ -8,8 +8,26 @@ type FormValues = {
 };
 
 export const YouTubeForm = () => {
-  // add FormValues type when invoking useForm hook
-  const form = useForm<FormValues>();
+  // const form = useForm({
+  //   defaultValues: {
+  //     username: "white foot",
+  //     email: "",
+  //     channel: "",
+  //   },
+  // });
+  const form = useForm<FormValues>({
+    defaultValues: async () => {
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/users/5"
+      );
+      const data = await response.json();
+      return {
+        username: "white foot",
+        email: data.email,
+        channel: "",
+      };
+    },
+  });
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
 
