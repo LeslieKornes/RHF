@@ -30,6 +30,11 @@ export const YouTubeForm = () => {
                 value: true,
                 message: "username is required",
               },
+              validate: {
+                notLisa: (fieldValue) => {
+                  return fieldValue !== "lisa" || "enter a different username";
+                },
+              },
             })}
           />
           <p className="error">{errors.username?.message}</p>
@@ -45,6 +50,13 @@ export const YouTubeForm = () => {
                 value:
                   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                 message: "invalid email format",
+              },
+              // fieldValue is automatically a param to validate function
+              validate: (fieldValue) => {
+                return (
+                  fieldValue !== "admin@example.com" ||
+                  "enter a different email address"
+                );
               },
             })}
           />
