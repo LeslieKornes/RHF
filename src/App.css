@@ -11,6 +11,16 @@ label {
   margin-bottom: 5px;
 }
 
+.error {
+  color: red;
+  font-size: 12px;
+  text-align: left;
+}
+
+.form-control {
+  margin-bottom: 20px;
+}
+
 input[type="text"],
 input[type="email"],
 input[type="number"],
@@ -24,5 +34,4 @@ input[type="data"] {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-bottom: 20px;
 }
