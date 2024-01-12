@@ -5,29 +5,40 @@ type FormValues = {
   username: string;
   email: string;
   channel: string;
+  social: {
+    twitter: string;
+    facebook: string;
+  };
+  phoneNumbers: string[];
 };
 
 export const YouTubeForm = () => {
-  // const form = useForm({
-  //   defaultValues: {
-  //     username: "white foot",
-  //     email: "",
-  //     channel: "",
-  //   },
-  // });
-  const form = useForm<FormValues>({
-    defaultValues: async () => {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users/5"
-      );
-      const data = await response.json();
-      return {
-        username: "white foot",
-        email: data.email,
-        channel: "",
-      };
+  const form = useForm({
+    defaultValues: {
+      username: "white foot",
+      email: "",
+      channel: "",
+      social: {
+        twitter: "",
+        facebook: "",
+      },
+      phoneNumbers: ["", ""],
     },
   });
+  // how to populate default values with previously saved data
+  // const form = useForm<FormValues>({
+  //   defaultValues: async () => {
+  //     const response = await fetch(
+  //       "https://jsonplaceholder.typicode.com/users/5"
+  //     );
+  //     const data = await response.json();
+  //     return {
+  //       username: "white foot",
+  //       email: data.email,
+  //       channel: "",
+  //     };
+  //   },
+  // });
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
 
@@ -94,6 +105,67 @@ export const YouTubeForm = () => {
             })}
           />
           <p className="error">{errors.channel?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="twitter">Twitter</label>
+          <input
+            type="text"
+            id="twitter"
+            {...register("social.twitter", {
+              required: {
+                value: true,
+                message: "twitter handle is required",
+              },
+            })}
+          />
+          <p className="error">{errors.social?.twitter?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="facebook">Facebook</label>
+          <input
+            type="text"
+            id="facebook"
+            {...register("social.facebook", {
+              required: {
+                value: true,
+                message: "facebook account is required",
+              },
+            })}
+          />
+          <p className="error">{errors.social?.facebook?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="primary-phone">Primary Phone Number</label>
+          {/* _must_ use dot notation for index - cannot use bracket */}
+          <input
+            type="text"
+            id="primary-phone"
+            {...register("phoneNumbers.0", {
+              required: {
+                value: true,
+                message: "primary phone # req'd",
+              },
+            })}
+          />
+          <p className="error">{errors.phoneNumbers?.[0]?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="secondary-phone">Secondary Phone Number</label>
+          <input
+            type="text"
+            id="secondary-phone"
+            {...register("phoneNumbers.1", {
+              required: {
+                value: true,
+                message: "need dat secondary too",
+              },
+            })}
+          />
+          <p className="error">{errors.phoneNumbers?.[1]?.message}</p>
         </div>
 
         <button>Submit</button>
