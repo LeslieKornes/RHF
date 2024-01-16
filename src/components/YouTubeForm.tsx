@@ -14,6 +14,7 @@ type FormValues = {
     number: string;
   }[];
   age: number;
+  dob: Date;
 };
 
 export const YouTubeForm = () => {
@@ -29,6 +30,7 @@ export const YouTubeForm = () => {
       phoneNumbers: ["", ""],
       phNumbers: [{ number: "" }],
       age: 0,
+      dob: new Date(),
     },
   });
   // how to populate default values with previously saved data
@@ -216,6 +218,22 @@ export const YouTubeForm = () => {
             })}
           />
           <p className="error">{errors.age?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="dob">Date of Birth</label>
+          <input
+            type="date"
+            id="dob"
+            {...register("dob", {
+              valueAsDate: true,
+              required: {
+                value: true,
+                message: "Date of Birth is required",
+              },
+            })}
+          />
+          <p className="error">{errors.dob?.message}</p>
         </div>
 
         <button>Submit</button>
